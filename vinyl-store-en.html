@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skull & Needle — Vinyl Records</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #1b1712;
+    --panel: #241f18;
+    --panel-2: #2c261d;
+    --line: #3a3226;
+    --gold: #d4a24c;
+    --gold-soft: #8f713a;
+    --teal: #3fa796;
+    --cream: #f2e9db;
+    --cream-dim: #b3a68f;
+    --display: 'Fraunces', serif;
+    --mono: 'Space Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--cream);
+    font-family: var(--sans);
+    line-height: 1.65;
+  }
+
+  a { color: var(--gold); }
+  ::selection { background: var(--gold); color: #1b1712; }
+
+  /* ---------- NAV ---------- */
+  nav.topbar {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 34px;
+    background: rgba(27,23,18,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.topbar .brand { font-family: var(--display); font-size: 20px; font-weight: 700; color: var(--cream); }
+  nav.topbar .brand em { color: var(--gold); font-style: normal; }
+  nav.topbar ul { list-style: none; display: flex; gap: 28px; }
+  nav.topbar ul li a { color: var(--cream-dim); text-decoration: none; font-size: 14px; letter-spacing: .3px; transition: color .2s; }
+  nav.topbar ul li a:hover { color: var(--gold); }
+
+  /* ---------- HERO ---------- */
+  header.hero {
+    max-width: 1040px; margin: 0 auto;
+    padding: 90px 34px 70px;
+    display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; align-items: center;
+  }
+  .eyebrow {
+    font-family: var(--mono); font-size: 12px; color: var(--teal);
+    text-transform: uppercase; letter-spacing: 2px; margin-bottom: 18px; display: block;
+  }
+  h1.title {
+    font-family: var(--display); font-weight: 900;
+    font-size: clamp(36px, 5vw, 56px); line-height: 1.05; color: var(--cream);
+  }
+  h1.title .gold { color: var(--gold); font-style: italic; font-weight: 500; }
+  p.subtitle { color: var(--cream-dim); font-size: 17px; margin-top: 20px; max-width: 480px; }
+  .cta-row { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
+  .btn { font-family: var(--mono); font-size: 13px; text-decoration: none; padding: 13px 22px; border-radius: 2px; border: 1px solid var(--gold-soft); transition: all .2s; }
+  .btn.primary { background: var(--gold); color: #1b1712; font-weight: 700; border-color: var(--gold); }
+  .btn.primary:hover { background: #e6b95d; }
+  .btn.ghost { color: var(--cream); }
+  .btn.ghost:hover { border-color: var(--teal); color: var(--teal); }
+
+  /* signature: spinning vinyl disc */
+  .vinyl-wrap { display: flex; justify-content: center; }
+  .vinyl {
+    width: 260px; height: 260px; border-radius: 50%;
+    background:
+      repeating-radial-gradient(circle at center, #100d0a 0px, #100d0a 2px, #1c1712 3px, #1c1712 5px);
+    position: relative;
+    box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6);
+    animation: spin 6s linear infinite;
+  }
+  .vinyl::before {
+    content: ""; position: absolute; inset: 0; margin: auto;
+    width: 90px; height: 90px; border-radius: 50%;
+    background: var(--gold);
+  }
+  .vinyl::after {
+    content: ""; position: absolute; inset: 0; margin: auto;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--bg);
+  }
+  @keyframes spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .vinyl { animation: none; } }
+
+  /* ---------- SECTIONS ---------- */
+  section { max-width: 1040px; margin: 0 auto; padding: 80px 34px; border-top: 1px solid var(--line); }
+  .section-head { margin-bottom: 40px; }
+  .section-head .eyebrow { margin-bottom: 8px; }
+  .section-head h2 { font-family: var(--display); font-size: 30px; font-weight: 700; }
+
+  /* ---------- ABOUT (text formatting demo) ---------- */
+  .about-text { max-width: 680px; color: var(--cream-dim); font-size: 16px; }
+  .about-text p { margin-bottom: 16px; }
+  .about-text strong { color: var(--cream); }
+  .about-text em { color: var(--gold); font-style: italic; }
+
+  blockquote {
+    border-left: 3px solid var(--gold); padding: 6px 0 6px 22px; margin: 26px 0;
+    font-family: var(--display); font-style: italic; font-size: 19px; color: var(--cream);
+  }
+  blockquote cite { display: block; margin-top: 8px; font-family: var(--mono); font-style: normal; font-size: 12px; color: var(--cream-dim); }
+
+  /* ---------- GENRE GRID (div + class demo) ---------- */
+  .genre-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+  .genre-card { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 22px; }
+  .genre-card h3 { font-family: var(--display); font-size: 18px; color: var(--gold); margin-bottom: 8px; }
+  .genre-card p { color: var(--cream-dim); font-size: 14px; margin-bottom: 12px; }
+  .stock-bar { height: 5px; background: var(--panel-2); border-radius: 3px; overflow: hidden; }
+  .stock-bar span { display: block; height: 100%; background: var(--teal); }
+  .genre-card .stock-label { font-family: var(--mono); font-size: 11px; color: var(--cream-dim); margin-top: 6px; }
+
+  /* ---------- CATALOG TABLE ---------- */
+  table.catalog { width: 100%; border-collapse: collapse; font-size: 14px; }
+  table.catalog th {
+    text-align: left; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .5px;
+    color: var(--gold); padding: 12px 10px; border-bottom: 1px solid var(--line);
+  }
+  table.catalog td { padding: 14px 10px; border-bottom: 1px solid var(--line); color: var(--cream-dim); }
+  table.catalog tr:hover td { background: var(--panel); color: var(--cream); }
+  .pill { font-family: var(--mono); font-size: 11px; padding: 3px 9px; border-radius: 999px; }
+  .pill.in { background: rgba(63,167,150,0.15); color: var(--teal); border: 1px solid rgba(63,167,150,0.35); }
+  .pill.low { background: rgba(212,162,76,0.15); color: var(--gold); border: 1px solid rgba(212,162,76,0.35); }
+
+  /* ---------- HOW TO ORDER (ordered list) ---------- */
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+  .steps ol { list-style: none; counter-reset: step; }
+  .steps li { counter-increment: step; padding: 18px; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; margin-bottom: 14px; position: relative; padding-left: 52px; }
+  .steps li::before {
+    content: counter(step); position: absolute; left: 16px; top: 16px;
+    font-family: var(--mono); color: var(--gold); font-weight: 700; font-size: 14px;
+  }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline { border-left: 2px solid var(--line); padding-left: 28px; }
+  .t-item { position: relative; padding-bottom: 30px; }
+  .t-item:last-child { padding-bottom: 0; }
+  .t-item::before { content: ""; position: absolute; left: -35px; top: 4px; width: 11px; height: 11px; border-radius: 50%; background: var(--bg); border: 2px solid var(--gold); }
+  .t-item .year { font-family: var(--mono); color: var(--gold); font-size: 13px; }
+  .t-item h4 { font-family: var(--display); font-size: 17px; margin-top: 4px; }
+  .t-item p { color: var(--cream-dim); font-size: 14px; margin-top: 4px; }
+
+  /* ---------- FAQ ---------- */
+  details.faq { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 16px 20px; margin-bottom: 12px; }
+  details.faq summary { cursor: pointer; font-family: var(--display); font-size: 16px; list-style: none; }
+  details.faq summary::-webkit-details-marker { display: none; }
+  details.faq summary::before { content: "♪ "; color: var(--gold); }
+  details.faq p { margin-top: 12px; color: var(--cream-dim); font-size: 14px; }
+
+  /* ---------- ORDER FORM ---------- */
+  form.order-form { display: grid; gap: 16px; max-width: 560px; }
+  .field label { font-family: var(--mono); font-size: 11px; color: var(--cream-dim); text-transform: uppercase; letter-spacing: .5px; display: block; margin-bottom: 6px; }
+  .field input, .field select, .field textarea {
+    width: 100%; background: var(--panel); border: 1px solid var(--line); border-radius: 3px;
+    padding: 11px 12px; color: var(--cream); font-family: var(--sans); font-size: 14px;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--gold); }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .radio-row { display: flex; gap: 20px; font-size: 13px; color: var(--cream-dim); font-family: var(--mono); }
+  .radio-row label { display: flex; align-items: center; gap: 6px; }
+  #form-status { font-family: var(--mono); font-size: 13px; margin-top: 4px; min-height: 18px; }
+
+  /* ---------- FOOTER (dl for hours) ---------- */
+  footer {
+    max-width: 1040px; margin: 0 auto; padding: 60px 34px 40px;
+    border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+  }
+  footer dl { display: grid; grid-template-columns: auto 1fr; gap: 6px 18px; font-size: 14px; }
+  footer dt { color: var(--cream-dim); font-family: var(--mono); font-size: 12px; }
+  footer dd { color: var(--cream); }
+  footer address { font-style: normal; color: var(--cream-dim); font-size: 14px; line-height: 1.8; }
+  footer .copyline { grid-column: 1 / -1; margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--line); font-family: var(--mono); font-size: 12px; color: var(--cream-dim); }
+
+  @media (max-width: 760px) {
+    header.hero, .field-row, footer { grid-template-columns: 1fr; }
+    nav.topbar ul { display: none; }
+    .vinyl-wrap { order: -1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav class="topbar">
+  <div class="brand">Skull & <em>Needle</em></div>
+  <ul>
+    <li><a href="#about">about</a></li>
+    <li><a href="#genres">genres</a></li>
+    <li><a href="#catalog">catalog</a></li>
+    <li><a href="#order">order</a></li>
+    <li><a href="#faq">faq</a></li>
+  </ul>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div>
+    <span class="eyebrow">A Record Shop Since 1978</span>
+    <h1 class="title">Sound, <span class="gold">dust</span><br>and time itself.</h1>
+    <p class="subtitle">Every record that passes through here carries its own story. We hunt them down,
+    clean them up, and help them find a new home.</p>
+    <div class="cta-row">
+      <a href="#catalog" class="btn primary">Browse the catalog</a>
+      <a href="#order" class="btn ghost">Place an order</a>
+    </div>
+  </div>
+  <div class="vinyl-wrap">
+    <div class="vinyl" aria-hidden="true"></div>
+  </div>
+</header>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="section-head">
+    <span class="eyebrow">01 · About Us</span>
+    <h2>More than a shop — an archive</h2>
+  </div>
+  <div class="about-text">
+    <p>Skull & Needle has been collecting, cleaning, and returning old vinyl records to listeners
+    since <strong>1978</strong>. Every record is checked <em>by hand</em> — scratches, sound quality,
+    and sleeve condition are all assessed carefully.</p>
+    <p>Our collection spans thousands of copies across <strong>jazz</strong>, <strong>funk</strong>,
+    <strong>rock</strong>, and <strong>blues</strong> — some pressed only once and never reissued.</p>
+    <blockquote>
+      "Walk into this shop and time starts running backwards."
+      <cite>— Local music magazine, 2024</cite>
+    </blockquote>
+  </div>
+</section>
+
+<!-- ================= GENRES ================= -->
+<section id="genres">
+  <div class="section-head">
+    <span class="eyebrow">02 · Genres</span>
+    <h2>The heart of the collection</h2>
+  </div>
+  <div class="genre-grid">
+    <div class="genre-card">
+      <h3>Jazz</h3>
+      <p>Classic jazz pressings from the 1950s–70s.</p>
+      <div class="stock-bar"><span style="width:80%"></span></div>
+      <div class="stock-label">stock: high</div>
+    </div>
+    <div class="genre-card">
+      <h3>Funk & Soul</h3>
+      <p>Dance floor rhythms, rare finds.</p>
+      <div class="stock-bar"><span style="width:45%"></span></div>
+      <div class="stock-label">stock: medium</div>
+    </div>
+    <div class="genre-card">
+      <h3>Classic Rock</h3>
+      <p>The most sought-after albums of the 70s–80s.</p>
+      <div class="stock-bar"><span style="width:65%"></span></div>
+      <div class="stock-label">stock: good</div>
+    </div>
+    <div class="genre-card">
+      <h3>Blues</h3>
+      <p>From Southern blues to Chicago blues.</p>
+      <div class="stock-bar"><span style="width:25%"></span></div>
+      <div class="stock-label">stock: low</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CATALOG TABLE ================= -->
+<section id="catalog">
+  <div class="section-head">
+    <span class="eyebrow">03 · Featured Catalog</span>
+    <h2>This week's finds</h2>
+  </div>
+  <table class="catalog">
+    <thead>
+      <tr><th>Album</th><th>Year</th><th>Genre</th><th>Price</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Midnight Groove</td><td>1974</td><td>Funk</td><td>$11</td><td><span class="pill in">In stock</span></td></tr>
+      <tr><td>Blue Hour Sessions</td><td>1968</td><td>Jazz</td><td>$14</td><td><span class="pill in">In stock</span></td></tr>
+      <tr><td>Delta Roads</td><td>1959</td><td>Blues</td><td>$19</td><td><span class="pill low">Last copy</span></td></tr>
+      <tr><td>Amber Static</td><td>1981</td><td>Rock</td><td>$12</td><td><span class="pill in">In stock</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ================= HOW TO ORDER (ordered list) ================= -->
+<section id="how">
+  <div class="section-head">
+    <span class="eyebrow">04 · How To Order</span>
+    <h2>Three simple steps</h2>
+  </div>
+  <div class="steps">
+    <ol>
+      <li>Pick a record you like from the catalog.</li>
+      <li>Fill out the order form below.</li>
+      <li>We'll get back to you within 24 hours.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= TIMELINE ================= -->
+<section id="history">
+  <div class="section-head">
+    <span class="eyebrow">05 · Our History</span>
+    <h2>The shop's journey</h2>
+  </div>
+  <div class="timeline">
+    <div class="t-item">
+      <span class="year">1978</span>
+      <h4>A small basement shop opens</h4>
+      <p>The first collection held just 200 records.</p>
+    </div>
+    <div class="t-item">
+      <span class="year">1995</span>
+      <h4>The collection reaches 10,000 copies</h4>
+      <p>We became one of the region's largest vinyl archives.</p>
+    </div>
+    <div class="t-item">
+      <span class="year">2024</span>
+      <h4>The online catalog launches</h4>
+      <p>Now you can browse the collection from anywhere.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq">
+  <div class="section-head">
+    <span class="eyebrow">06 · Frequently Asked Questions</span>
+    <h2>Q&A</h2>
+  </div>
+  <details class="faq" open>
+    <summary>Are the records inspected?</summary>
+    <p>Yes — every record is hand-checked for scratches and sound quality before it's sold.</p>
+  </details>
+  <details class="faq">
+    <summary>Do you ship outside the city?</summary>
+    <p>Yes, we ship nationwide by post.</p>
+  </details>
+  <details class="faq">
+    <summary>Can I request a rare find?</summary>
+    <p>Absolutely — if you're hunting for a specific album, note it in the order form and we'll look into it.</p>
+  </details>
+</section>
+
+<!-- ================= ORDER FORM ================= -->
+<section id="order">
+  <div class="section-head">
+    <span class="eyebrow">07 · Order Form</span>
+    <h2>Get in touch</h2>
+  </div>
+  <form class="order-form" id="orderForm">
+    <div class="field-row">
+      <div class="field">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required placeholder="Enter your name">
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required placeholder="name@example.com">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="album">Album you want</label>
+      <select id="album" name="album">
+        <option value="midnight-groove">Midnight Groove</option>
+        <option value="blue-hour">Blue Hour Sessions</option>
+        <option value="delta-roads">Delta Roads</option>
+        <option value="amber-static">Amber Static</option>
+        <option value="other">Other / custom request</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Delivery method</label>
+      <div class="radio-row">
+        <label><input type="radio" name="delivery" value="pickup" checked> In-store pickup</label>
+        <label><input type="radio" name="delivery" value="post"> By post</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="note">Note (optional)</label>
+      <textarea id="note" name="note" rows="4" placeholder="Any special request..."></textarea>
+    </div>
+
+    <button type="submit" class="btn primary" style="justify-self:start;">Send order</button>
+    <div id="form-status"></div>
+  </form>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div>
+    <h3 style="font-family:var(--display); font-size:18px; margin-bottom:16px;">Opening Hours</h3>
+    <dl>
+      <dt>Mon – Fri</dt><dd>11:00 – 19:00</dd>
+      <dt>Saturday</dt><dd>12:00 – 17:00</dd>
+      <dt>Sunday</dt><dd>Closed</dd>
+    </dl>
+  </div>
+  <div>
+    <h3 style="font-family:var(--display); font-size:18px; margin-bottom:16px;">Address</h3>
+    <address>
+      24 Nizami Street<br>
+      Baku, Azerbaijan<br>
+      <a href="mailto:info@skullandneedle.com">info@skullandneedle.com</a>
+    </address>
+  </div>
+  <div class="copyline">© 2026 Skull & Needle Records — all rights reserved.</div>
+</footer>
+
+<script>
+  document.getElementById('orderForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const status = document.getElementById('form-status');
+    status.textContent = "Order prepared — not actually sent, since there's no real backend (this is a demo form).";
+    status.style.color = "#3fa796";
+  });
+</script>
+
+</body>
+</html>
